@@ -1,0 +1,1 @@
+ALTER TABLE public.metrics ADD COLUMN offer_name text DEFAULT '' NOT NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE public.creative_documents ADD COLUMN link text DEFAULT '';

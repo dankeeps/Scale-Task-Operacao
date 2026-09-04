@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot"></span> ScaleTask
+    </div>
+
+    <!-- Logged out -->
+    <form id="login-form" class="hidden">
+      <p class="hint">Entre com sua conta do ScaleTask.</p>
+      <input id="email" type="email" placeholder="seu@email.com" autocomplete="username" required />
+      <input id="password" type="password" placeholder="Senha" autocomplete="current-password" required />
+      <button id="login-btn" type="submit">Entrar</button>
+      <p id="error" class="error"></p>
+    </form>
+
+    <!-- Logged in -->
+    <div id="account" class="hidden">
+      <p class="hint">Conectado como</p>
+      <p id="who" class="who"></p>
+      <p class="ok">Abra a <b>Biblioteca de Anúncios do Meta</b>. Um botão do ScaleTask aparece em cada anúncio — clique para salvar no seu workspace.</p>
+      <button id="logout-btn" class="ghost" type="button">Sair</button>
+    </div>
+  </div>
+  <script src="config.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

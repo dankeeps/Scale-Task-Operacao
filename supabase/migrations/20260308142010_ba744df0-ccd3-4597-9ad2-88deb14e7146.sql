@@ -1,0 +1,1 @@
+ALTER TABLE public.chat_read_status ADD CONSTRAINT chat_read_status_user_project_unique UNIQUE (user_id, project_id);

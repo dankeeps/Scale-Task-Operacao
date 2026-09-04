@@ -1,0 +1,20 @@
+project_id = "smevuhbqznlnxrixcviz"
+
+[functions.analyze-metrics]
+verify_jwt = false
+
+[functions.compare-ads]
+verify_jwt = false
+
+[functions.transcribe-video]
+verify_jwt = false
+
+[functions.send-push]
+verify_jwt = false
+
+[functions.capture-ad]
+verify_jwt = false
+
+# Webhook público do SaaS de tracking (autenticado por token no próprio request).
+[functions.ad-metrics-webhook]
+verify_jwt = false

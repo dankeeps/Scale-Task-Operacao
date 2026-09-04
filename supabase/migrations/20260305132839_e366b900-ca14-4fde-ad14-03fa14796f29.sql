@@ -1,0 +1,1 @@
+ALTER TABLE public.swipes ADD COLUMN image_position integer NOT NULL DEFAULT 50;

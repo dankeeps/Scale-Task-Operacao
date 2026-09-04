@@ -1,0 +1,1 @@
+ALTER TABLE public.metrics ADD COLUMN cpa numeric DEFAULT 0;

@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "ScaleTask — Captura de Anúncios",
+  "version": "1.8.0",
+  "description": "Captura anúncios da Biblioteca de Anúncios do Meta direto para o seu workspace no ScaleTask.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ScaleTask",
+    "default_icon": "icon.png"
+  },
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://*.facebook.com/ads/library/*",
+    "https://*.fbcdn.net/*",
+    "https://smevuhbqznlnxrixcviz.supabase.co/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://*.facebook.com/ads/library/*"],
+      "js": ["config.js", "content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": { "16": "icon.png", "48": "icon.png", "128": "icon.png" }
+}

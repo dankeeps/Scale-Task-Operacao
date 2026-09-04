@@ -1,0 +1,1 @@
+ALTER TABLE public.flow_instances ADD COLUMN step_assignments jsonb DEFAULT '{}'::jsonb;

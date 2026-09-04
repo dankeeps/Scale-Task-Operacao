@@ -1,0 +1,1 @@
+ALTER TABLE public.creative_documents ADD COLUMN phase_assignments jsonb DEFAULT '{}'::jsonb;

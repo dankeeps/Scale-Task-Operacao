@@ -1,0 +1,445 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light theme (default :root) */
+  :root {
+    --background: 240 20% 97%;
+    --foreground: 240 10% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 12%;
+
+    --primary: 240 8% 12%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 6% 94%;
+    --secondary-foreground: 240 8% 20%;
+
+    --muted: 240 6% 94%;
+    --muted-foreground: 240 4% 46%;
+
+    --accent: 240 6% 92%;
+    --accent-foreground: 240 8% 12%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 6% 88%;
+    --input: 240 6% 88%;
+    --ring: 240 5% 65%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 5% 40%;
+    --sidebar-primary: 240 8% 12%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 6% 93%;
+    --sidebar-accent-foreground: 240 8% 12%;
+    --sidebar-border: 240 6% 90%;
+    --sidebar-ring: 240 5% 65%;
+
+    /* Custom tokens */
+    --neon: 145 70% 40%;
+    /* Light glass = near-opaque white so dialogs/popovers don't reveal the dark overlay */
+    --glass-bg: 0 0% 100% / 0.98;
+    --glass-border: 240 6% 88% / 1;
+    --glass-hover: 240 6% 96% / 1;
+    --glow-primary: 145 100% 40% / 0.05;
+    --glow-strong: 145 100% 40% / 0.09;
+
+    /* Elevated surface (cards) — cinza-escuro sobre o fundo cinza claro */
+    --surface: 240 12% 93% / 1;
+    --surface-hover: 240 12% 90% / 1;
+  }
+
+  /* Dark theme */
+  .dark {
+    --background: 240 6% 4%;
+    --foreground: 0 0% 96%;
+
+    --card: 240 5% 7%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 240 6% 6%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 6% 6%;
+
+    --secondary: 240 4% 12%;
+    --secondary-foreground: 0 0% 88%;
+
+    --muted: 240 4% 12%;
+    --muted-foreground: 240 5% 56%;
+
+    --accent: 240 4% 15%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 4% 13%;
+    --input: 240 4% 13%;
+    --ring: 0 0% 70%;
+
+    --sidebar-background: 240 6% 3.5%;
+    --sidebar-foreground: 240 5% 64%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 240 6% 6%;
+    --sidebar-accent: 240 4% 11%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 240 4% 10%;
+    --sidebar-ring: 0 0% 70%;
+
+    --neon: 145 100% 55%;
+    /* Popup = vidro fosco: translúcido o suficiente para o backdrop-filter (blur
+       20px do .glass) aparecer, mas legível. O overlay NÃO tem blur — só o popup.
+       (Antes 0.03 = transparente demais; e overlay+popup borrando = blur "duplo".) */
+    --glass-bg: 240 6% 9% / 0.6;
+    --glass-border: 0 0% 100% / 0.09;
+    --glass-hover: 240 5% 12% / 0.6;
+    --glow-primary: 145 100% 55% / 0.06;
+    --glow-strong: 145 100% 55% / 0.11;
+
+    --surface: 0 0% 100% / 0.04;
+    --surface-hover: 0 0% 100% / 0.06;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+    background-color: hsl(var(--background));
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+
+  /* Faint neutral lift at the top for depth — dark only */
+  .dark body {
+    background-image:
+      radial-gradient(ellipse 110% 80% at 50% -15%, hsla(0, 0%, 100%, 0.022), transparent 60%);
+  }
+}
+
+@layer utilities {
+  /* Elevated surface — adapts per theme (white card in light, faint lift in dark) */
+  .surface {
+    background-color: hsla(var(--surface));
+  }
+  .surface-hover:hover {
+    background-color: hsla(var(--surface-hover));
+  }
+}
+
+/* ── Floating icon rail (ClickUp-style) — shared by Light & Special (.rail) ── */
+html.rail [data-sidebar="sidebar"] {
+  color: hsl(0 0% 92%);
+  border: none !important;
+  border-radius: 18px !important;
+}
+html.rail [data-sidebar="sidebar"] a,
+html.rail [data-sidebar="sidebar"] button,
+html.rail [data-sidebar="sidebar"] span,
+html.rail [data-sidebar="sidebar"] svg {
+  color: hsl(0 0% 90%);
+}
+/* Vertical icon+label rows: undo the forced 2rem square of collapsible=icon */
+html.rail [data-sidebar="sidebar"] [data-sidebar="menu-button"] {
+  width: 100% !important;
+  height: auto !important;
+  padding: 8px 4px !important;
+}
+/* Center the footer icon buttons in the narrow rail */
+html.rail [data-sidebar="footer"] > button {
+  justify-content: center;
+}
+/* hover on inactive rows */
+html.rail [data-sidebar="sidebar"] a:hover,
+html.rail [data-sidebar="sidebar"] button:hover {
+  background-color: hsla(0 0% 100% / 0.14) !important;
+  color: #fff;
+}
+/* active nav item → solid white pill */
+html.rail [data-sidebar="sidebar"] a.bg-secondary,
+html.rail [data-sidebar="sidebar"] a.bg-secondary:hover {
+  background-color: #fff !important;
+}
+
+/* Light: gradiente roxo escuro → preto (com textura) */
+html.light [data-sidebar="sidebar"] {
+  background-color: hsl(240 6% 8%);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"),
+    linear-gradient(160deg, hsl(262 45% 22%) 0%, hsl(258 38% 14%) 45%, hsl(240 8% 5%) 100%);
+  background-size: 180px 180px, cover;
+  background-repeat: repeat, no-repeat;
+  background-blend-mode: overlay, normal;
+  box-shadow: 0 12px 34px -10px hsla(260 45% 10% / 0.6);
+}
+html.light [data-sidebar="sidebar"] a.bg-secondary svg,
+html.light [data-sidebar="sidebar"] a.bg-secondary span {
+  color: hsl(262 48% 45%) !important;
+}
+
+/* Special: fundo preto + gradiente verde escuro → preto (com textura) */
+html.special [data-sidebar="sidebar"] {
+  background-color: hsl(220 8% 5%);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"),
+    linear-gradient(160deg, hsl(158 40% 11%) 0%, hsl(156 32% 7%) 45%, hsl(220 8% 4%) 100%);
+  background-size: 180px 180px, cover;
+  background-repeat: repeat, no-repeat;
+  background-blend-mode: overlay, normal;
+  box-shadow: 0 12px 34px -10px hsla(158 45% 7% / 0.6);
+}
+html.special [data-sidebar="sidebar"] a.bg-secondary svg,
+html.special [data-sidebar="sidebar"] a.bg-secondary span {
+  color: hsl(158 55% 32%) !important;
+}
+
+/* Light mode: unifica os "cards" (elevated surfaces hardcoded) no mesmo
+   cinza-escuro do token --surface, sobre o fundo cinza claro. Vale em todas as abas. */
+html:not(.dark) .bg-white\/\[0\.04\],
+html:not(.dark) .bg-white\/\[0\.05\] {
+  background-color: hsl(240 12% 93%) !important;
+}
+html:not(.dark) .hover\:bg-white\/\[0\.06\]:hover,
+html:not(.dark) .hover\:bg-white\/\[0\.08\]:hover {
+  background-color: hsl(240 12% 90%) !important;
+}
+
+/* Dashboard (light): textura leve estilo SaaS — linhas onduladas + brilhos
+   difusos + pontinhos só nas bordas (fade no centro). Tudo bem sutil. */
+html:not(.dark) .dash-neutral { position: relative; }
+html:not(.dark) .dash-neutral > * { position: relative; z-index: 1; }
+/* Camada de textura fixa cobrindo toda a área (atrás do conteúdo) */
+html:not(.dark) .dash-neutral::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: hsl(240 20% 97%);
+  background-image:
+    /* linhas onduladas (bottom-right) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1440' height='900' preserveAspectRatio='xMaxYMax slice'%3E%3Cg fill='none' stroke='%237c6cf0' stroke-opacity='0.12' stroke-width='1.4'%3E%3Cpath d='M480 900 C820 690 1050 830 1440 590'/%3E%3Cpath d='M545 900 C885 720 1085 850 1440 655'/%3E%3Cpath d='M610 900 C950 755 1120 875 1440 720'/%3E%3Cpath d='M680 900 C1015 795 1165 900 1440 790'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 40% 50% at 100% 0%, hsla(258 70% 66% / 0.08), transparent 72%),
+    radial-gradient(ellipse 50% 50% at 100% 100%, hsla(225 65% 68% / 0.10), transparent 72%),
+    radial-gradient(ellipse 45% 50% at 0% 0%, hsla(258 60% 70% / 0.06), transparent 70%),
+    radial-gradient(circle at 1px 1px, hsla(240 16% 40% / 0.07) 1px, transparent 0);
+  background-size: cover, 100% 100%, 100% 100%, 100% 100%, 24px 24px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-position: center, center, center, center, top left;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PURE — tema branco estilo Todoist (accent vermelho) + menu expansível
+   (mesma estrutura do dark: sem rail). Não carrega .dark, então as
+   variantes claras do Tailwind já se aplicam. Regras vêm DEPOIS das de
+   html:not(.dark) para vencer no empate de especificidade.
+   ══════════════════════════════════════════════════════════════════════ */
+html.pure {
+  --background: 0 0% 100%;
+  --foreground: 220 9% 15%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 9% 15%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 9% 15%;
+
+  /* Accent vermelho Todoist */
+  --primary: 6 78% 57%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 220 9% 22%;
+
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 6% 45%;
+
+  --accent: 6 80% 96%;
+  --accent-foreground: 6 74% 45%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 6 78% 57%;
+
+  --sidebar-background: 220 20% 98%;
+  --sidebar-foreground: 220 8% 35%;
+  --sidebar-primary: 6 78% 57%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 6 80% 96%;
+  --sidebar-accent-foreground: 6 74% 45%;
+  --sidebar-border: 220 13% 92%;
+  --sidebar-ring: 6 78% 57%;
+
+  /* neon → vermelho, para que acentos "neon" fiquem na identidade */
+  --neon: 6 78% 55%;
+  --glass-bg: 0 0% 100% / 0.98;
+  --glass-border: 220 13% 91% / 1;
+  --glass-hover: 220 14% 97% / 1;
+  --glow-primary: 6 78% 57% / 0.06;
+  --glow-strong: 6 78% 57% / 0.10;
+
+  /* Cards brancos com leve borda (look limpo, não cinza) */
+  --surface: 0 0% 100% / 1;
+  --surface-hover: 220 14% 98% / 1;
+}
+
+/* Cards hardcoded (bg-white/[0.04|0.05]) → branco com borda sutil no pure */
+html.pure .bg-white\/\[0\.04\],
+html.pure .bg-white\/\[0\.05\] {
+  background-color: #fff !important;
+  border-color: hsl(220 13% 91%);
+}
+html.pure .hover\:bg-white\/\[0\.06\]:hover,
+html.pure .hover\:bg-white\/\[0\.08\]:hover {
+  background-color: hsl(220 14% 97%) !important;
+}
+
+/* Sem a textura roxa do Dashboard no pure: fundo branco liso */
+html.pure .dash-neutral::before { display: none !important; }
+
+/* Item de nav ativo na sidebar → pílula vermelha clara + texto/ícone vermelho */
+html.pure [data-sidebar="sidebar"] a.bg-secondary,
+html.pure [data-sidebar="sidebar"] a.bg-secondary:hover {
+  background-color: hsl(6 80% 96%) !important;
+}
+html.pure [data-sidebar="sidebar"] a.bg-secondary,
+html.pure [data-sidebar="sidebar"] a.bg-secondary svg,
+html.pure [data-sidebar="sidebar"] a.bg-secondary span {
+  color: hsl(6 74% 47%) !important;
+}
+
+@layer utilities {
+  .glass {
+    background: hsla(var(--glass-bg));
+    backdrop-filter: blur(20px);
+    border: 1px solid hsla(var(--glass-border));
+  }
+
+  .glass-hover:hover {
+    background: hsla(var(--glass-hover));
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 30px hsla(var(--glow-primary));
+  }
+
+  .glow-primary-strong {
+    box-shadow: 0 0 40px hsla(var(--glow-strong));
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--muted-foreground)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 62%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Subtle neon-green accents */
+  .text-neon {
+    color: hsl(var(--neon));
+  }
+
+  .icon-neon {
+    color: hsl(var(--neon));
+    filter: drop-shadow(0 0 5px hsla(var(--neon), 0.45));
+  }
+
+  .glow-neon {
+    box-shadow: 0 8px 26px -6px hsla(var(--neon), 0.4);
+  }
+
+  /* ---------------------------------------------------------------------
+     Futuristic landing (Home.tsx) — self-contained, dark-optimized effects
+     --------------------------------------------------------------------- */
+  .lp-neon-text {
+    background: linear-gradient(110deg, #4ade80 0%, #22d3ee 45%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Faint perspective grid, faded out toward the edges */
+  .lp-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, #000 30%, transparent 100%);
+  }
+
+  /* Gradient hairline border on glass cards */
+  .lp-border {
+    position: relative;
+  }
+  .lp-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgba(74, 222, 128, 0.55), rgba(34, 211, 238, 0.22) 38%, rgba(255, 255, 255, 0.04) 70%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .lp-glow-hover {
+    transition: box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+  }
+  .lp-glow-hover:hover {
+    box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.25), 0 22px 60px -22px rgba(34, 211, 238, 0.4);
+    transform: translateY(-4px);
+  }
+
+  .animate-float { animation: lp-float 6s ease-in-out infinite; }
+  .animate-float-slow { animation: lp-float 9.5s ease-in-out infinite; }
+  .animate-aurora { animation: lp-aurora 20s ease-in-out infinite alternate; }
+  .animate-aurora-slow { animation: lp-aurora 30s ease-in-out infinite alternate; }
+  .animate-marquee { animation: lp-marquee 34s linear infinite; }
+  .animate-shine { animation: lp-shine 6s linear infinite; }
+}
+
+@keyframes lp-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes lp-aurora {
+  0% { transform: translate3d(-7%, -4%, 0) scale(1) rotate(0deg); }
+  100% { transform: translate3d(7%, 6%, 0) scale(1.18) rotate(8deg); }
+}
+@keyframes lp-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes lp-shine {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}

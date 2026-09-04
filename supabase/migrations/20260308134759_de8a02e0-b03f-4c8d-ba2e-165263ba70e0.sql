@@ -1,0 +1,2 @@
+
+ALTER TABLE public.chat_messages ADD COLUMN IF NOT EXISTS audio_url TEXT DEFAULT NULL;

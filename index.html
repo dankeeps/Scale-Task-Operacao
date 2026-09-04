@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>ScaleTask</title>
+    <meta name="description" content="Organize sua operação">
+    <meta name="author" content="ScaleTask" />
+
+    <!-- PWA / iOS -->
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ScaleTask" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+    <!-- TODO: Update og:title to match your application name -->
+    
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fc539400-850a-4900-ae4f-082b395e81db/id-preview-9d02cea7--c3508dba-3b63-4bb3-92df-e0f1573e46a0.lovable.app-1773022500537.png">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Lovable" />
+    <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fc539400-850a-4900-ae4f-082b395e81db/id-preview-9d02cea7--c3508dba-3b63-4bb3-92df-e0f1573e46a0.lovable.app-1773022500537.png">
+    <meta property="og:title" content="Scale Lab">
+  <meta name="twitter:title" content="Scale Lab">
+  <meta property="og:description" content="Organize sua operação">
+  <meta name="twitter:description" content="Organize sua operação">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        var r = document.documentElement;
+        if (t === "special") { r.classList.add("dark", "special", "rail"); }
+        else if (t === "pure") { r.classList.add("pure"); }
+        else if (t === "light") { r.classList.add("light", "rail"); }
+        else { r.classList.add("dark"); }
+      } catch (e) {
+        document.documentElement.classList.add("dark");
+      }
+    })();
+  </script>
+</head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

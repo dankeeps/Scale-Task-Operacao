@@ -1,0 +1,1 @@
+ALTER TABLE public.educational_content ADD COLUMN material_link text DEFAULT null;

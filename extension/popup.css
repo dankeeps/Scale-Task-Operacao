@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  width: 300px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0a0a0b;
+  color: #f5f5f5;
+}
+.wrap { padding: 16px; }
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; margin-bottom: 14px; }
+.brand .dot { width: 10px; height: 10px; border-radius: 50%; background: #22e06a; box-shadow: 0 0 8px #22e06a88; }
+.hint { font-size: 12px; color: #9a9a9f; margin: 0 0 10px; }
+input {
+  width: 100%; height: 38px; margin-bottom: 8px; padding: 0 12px;
+  background: #161618; border: 1px solid #26262a; border-radius: 8px;
+  color: #f5f5f5; font-size: 13px; outline: none;
+}
+input:focus { border-color: #3a3a40; }
+button {
+  width: 100%; height: 38px; border: 0; border-radius: 8px; cursor: pointer;
+  background: #f5f5f5; color: #0a0a0b; font-weight: 600; font-size: 13px;
+}
+button:disabled { opacity: .6; cursor: default; }
+button.ghost { background: transparent; color: #9a9a9f; border: 1px solid #26262a; margin-top: 10px; }
+.error { color: #ff6b6b; font-size: 12px; min-height: 14px; margin: 6px 0 0; }
+.who { font-size: 13px; font-weight: 600; margin: 0 0 12px; }
+.ok { font-size: 12px; color: #c9c9cf; line-height: 1.5; background: #131315; border: 1px solid #222; border-radius: 8px; padding: 10px; }
+.hidden { display: none; }

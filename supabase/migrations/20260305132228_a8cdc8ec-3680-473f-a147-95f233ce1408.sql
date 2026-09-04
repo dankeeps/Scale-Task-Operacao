@@ -1,0 +1,1 @@
+ALTER TABLE public.swipes ADD COLUMN image_url text NOT NULL DEFAULT '';

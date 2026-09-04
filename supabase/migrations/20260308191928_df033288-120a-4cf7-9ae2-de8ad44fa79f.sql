@@ -1,0 +1,1 @@
+ALTER TABLE public.projects ADD COLUMN telegram_bot_token text DEFAULT NULL;
